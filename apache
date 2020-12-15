@@ -1,0 +1,13 @@
+---
+- name: installing apache
+  yum: name=httpd state=latest
+- name: starting httpd
+  service:
+    name: httpd
+    state: restarted
+    enabled: yes
+- name: copy httpd.conf
+  template:
+    src: /etc/ansible/roles/testinghttpd/templates/httpd.conf.j2
+    dest: /etc/httpd/conf/httpd.conf
+  notify: restart apache service
